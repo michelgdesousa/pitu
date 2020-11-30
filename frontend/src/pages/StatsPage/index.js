@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import Header from '../../components/Header';
 import { Container } from 'react-bootstrap';
 import ShortenerService from '../../services/shortenerService';
 
-import {parseISO, formatRelative} from 'date-fns';
+import { parseISO, formatRelative } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,8 +27,9 @@ class StatsPage extends React.Component {
             const service = new ShortenerService();
             const shortenedURL = await service.getStats(code);
 
-            const parsedDate = parseISO(shortenedURL.updatedAT);
+            const parsedDate = parseISO(shortenedURL.updatedAt);
             const currentDate = new Date();
+            
             const relativeDate = formatRelative(parsedDate, currentDate, {
                 locale: ptBr,
             });
@@ -37,7 +38,9 @@ class StatsPage extends React.Component {
 
             this.setState({ isLoading: false, shortenedURL });
         } catch (error) {
+            
             this.setState({ isLoading: false, errorMessage: 'Ops, a URL solicitada não existe.'});
+
         }
     }
 
@@ -53,7 +56,6 @@ class StatsPage extends React.Component {
                             <FontAwesomeIcon size="3x" color= "#f8d7da" icon= "exclamation-triangle" />
                             <p className="m-3">{errorMessage}</p>
                             <a className="btn btn-primary" href="/">Encurtar nova URL</a>
-
                         </StatsContainer>
                     ) : (
                         <StatsContainer className="text-center">
